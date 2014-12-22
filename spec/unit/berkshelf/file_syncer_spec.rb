@@ -74,12 +74,12 @@ module Berkshelf
         FileUtils.touch(File.join(source, '_darcs'))
 
         # VCS files: git
-        FileUtils.mkdir_p(File.join(source, '.git', 'objects', '08'))
-        FileUtils.touch(File.join(source, '.git', 'HEAD'))
-        git_readonly_file = File.join(source, '.git', 'objects', '08', '01ddba0b1237b2e0e602cf5fdb6544561950cb')
+        FileUtils.mkdir_p(File.join(source, 'sample', '.git', 'objects', '08'))
+        FileUtils.touch(File.join(source, 'sample', '.git', 'HEAD'))
+        git_readonly_file = File.join(source, 'sample', '.git', 'objects', '08', '01ddba0b1237b2e0e602cf5fdb6544561950cb')
         FileUtils.touch(File.join(git_readonly_file))
         FileUtils.chmod("ugo=r", git_readonly_file)
-        FileUtils.touch(File.join(source, '.gitignore'))
+        FileUtils.touch(File.join(source, 'sample', '.gitignore'))
 
         # VCS files: Mercurial
         FileUtils.touch(File.join(source, '.hg'))
@@ -159,9 +159,10 @@ module Berkshelf
           expect("#{destination}/_darcs").to_not be_a_file
 
           # VCS files: git
-          expect("#{destination}/.git/objects/08/01ddba0b1237b2e0e602cf5fdb6544561950cb").to_not be_a_file
-          expect("#{destination}/.git/HEAD").to_not be_a_file
-          expect("#{destination}/.git").to_not be_a_directory
+          expect("#{destination}/sample/.git/objects/08/01ddba0b1237b2e0e602cf5fdb6544561950cb").to_not be_a_file
+          expect("#{destination}/sample/.git/HEAD").to_not be_a_file
+          expect("#{destination}/sample/.git").to_not be_a_directory
+          expect("#{destination}/sample/.gitignore").to_not be_a_file
 
           # VCS files: Mercurial
           expect("#{destination}/.hg").to_not be_a_file
